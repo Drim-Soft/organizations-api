@@ -10,7 +10,7 @@ public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDOrganization") 
-    private Long id;
+    private Long IDOrganization;
 
     @Column(name = "nit", nullable = false)
     private String nit;
@@ -29,15 +29,15 @@ public class Organization {
 
     @ManyToMany
     @JoinTable(
-        name = "UserOrganization", // ✅ coincide con la tabla intermedia del SQL
-        joinColumns = @JoinColumn(name = "IDOrganization"), // ✅ FK exacta
-        inverseJoinColumns = @JoinColumn(name = "IDUser")   // ✅ FK exacta
+        name = "UserOrganization",
+        joinColumns = @JoinColumn(name = "IDOrganization"),
+        inverseJoinColumns = @JoinColumn(name = "IDUser") 
     )
     private List<UserPlanifika> users;
 
     // Getters y setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { return IDOrganization; }
+    public void setId(Long IDOrganization) { this.IDOrganization = IDOrganization; }
 
     public String getNit() { return nit; }
     public void setNit(String nit) { this.nit = nit; }

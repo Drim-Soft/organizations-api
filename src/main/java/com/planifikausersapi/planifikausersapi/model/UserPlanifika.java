@@ -10,7 +10,7 @@ public class UserPlanifika {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDUser") 
-    private Long id;
+    private Long IDUser;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -22,8 +22,8 @@ public class UserPlanifika {
     private List<Organization> organizations;
 
     // Getters y setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { return IDUser; }
+    public void setId(Long IDUser) { this.IDUser = IDUser; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
