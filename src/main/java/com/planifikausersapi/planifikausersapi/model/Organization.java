@@ -1,77 +1,59 @@
 package com.planifikausersapi.planifikausersapi.model;
 
-
 import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "organizations")
+@Table(name = "Organization") 
 public class Organization {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "IDOrganization") 
+    private Long id;
 
-	@Column(nullable = false)
-	private String name;
+    @Column(name = "nit", nullable = false)
+    private String nit;
 
-	private String address;
-	private String phone;
-	private String photoURL;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-	@ManyToMany
-	@JoinTable(
-		name = "user_organization",
-		joinColumns = @JoinColumn(name = "organization_id"),
-		inverseJoinColumns = @JoinColumn(name = "user_id")
-	)
-	private List<UserPlanifika> users;
+    @Column(name = "address")
+    private String address;
 
-	public Long getId() {
-		return id;
-	}
+    @Column(name = "phone")
+    private String phone;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Column(name = "photoURL")
+    private String photoURL;
 
-	public String getName() {
-		return name;
-	}
+    @ManyToMany
+    @JoinTable(
+        name = "UserOrganization", // ✅ coincide con la tabla intermedia del SQL
+        joinColumns = @JoinColumn(name = "IDOrganization"), // ✅ FK exacta
+        inverseJoinColumns = @JoinColumn(name = "IDUser")   // ✅ FK exacta
+    )
+    private List<UserPlanifika> users;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    // Getters y setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-	public String getAddress() {
-		return address;
-	}
+    public String getNit() { return nit; }
+    public void setNit(String nit) { this.nit = nit; }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-	public String getPhotoURL() {
-		return photoURL;
-	}
+    public String getPhotoURL() { return photoURL; }
+    public void setPhotoURL(String photoURL) { this.photoURL = photoURL; }
 
-	public void setPhotoURL(String photoURL) {
-		this.photoURL = photoURL;
-	}
-
-	public List<UserPlanifika> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<UserPlanifika> users) {
-		this.users = users;
-	}
+    public List<UserPlanifika> getUsers() { return users; }
+    public void setUsers(List<UserPlanifika> users) { this.users = users; }
 }
