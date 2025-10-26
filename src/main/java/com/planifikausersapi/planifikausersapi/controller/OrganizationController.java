@@ -57,4 +57,14 @@ public class OrganizationController {
 	public List<UserPlanifika> getUsersByOrganization(@PathVariable Long id) {
 		return organizationService.getUsersByOrganization(id);
 	}
+
+	@PatchMapping("/{organizationId}/users/{userId}")
+	public ResponseEntity<UserPlanifika> linkUserToOrganization(
+		@PathVariable Long organizationId, 
+		@PathVariable Long userId
+	) {
+		return organizationService.linkUserToOrganization(organizationId, userId)
+			.map(ResponseEntity::ok)
+			.orElse(ResponseEntity.notFound().build());
+	}
 }
