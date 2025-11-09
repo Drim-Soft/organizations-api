@@ -1,5 +1,8 @@
 package com.planifikausersapi.planifikausersapi.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.planifikausersapi.planifikausersapi.model.Organization;
@@ -20,6 +23,19 @@ public class OrganizationService {
 
 	public List<Organization> findAll() {
 		return organizationRepository.findAll();
+	}
+
+	public Page<Organization> findAllPaginated(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return organizationRepository.findAll(pageable);
+	}
+
+	public Page<Organization> findAllPaginated(int page, int size, String search) {
+		Pageable pageable = PageRequest.of(page, size);
+		if (search == null || search.trim().isEmpty()) {
+			return organizationRepository.findAll(pageable);
+		}
+		return organizationRepository.findBySearchTerm(search.trim(), pageable);
 	}
 
 	public Optional<Organization> findById(Long id) {

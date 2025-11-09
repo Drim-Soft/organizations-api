@@ -1,5 +1,6 @@
 package com.planifikausersapi.planifikausersapi.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,17 @@ public class OrganizationController {
 	@GetMapping
 	public List<Organization> getAll() {
 		return organizationService.findAll();
+	}
+
+	@GetMapping("/paginated")
+	public Page<Organization> getAllPaginated(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size,
+			@RequestParam(required = false) String search) {
+		if (search != null && !search.trim().isEmpty()) {
+			return organizationService.findAllPaginated(page, size, search);
+		}
+		return organizationService.findAllPaginated(page, size);
 	}
 
 	@GetMapping("/{id}")
