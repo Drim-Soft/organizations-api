@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.planifikausersapi.planifikausersapi.model.Organization;
 import com.planifikausersapi.planifikausersapi.model.UserPlanifika;
 import com.planifikausersapi.planifikausersapi.repository.OrganizationRepository;
+import com.planifikausersapi.planifikausersapi.repository.UserPlanifikaRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +17,11 @@ import java.util.Optional;
 public class OrganizationService {
 
 	private final OrganizationRepository organizationRepository;
-
-	public OrganizationService(OrganizationRepository organizationRepository) {
+	private final UserPlanifikaRepository userPlanifikaRepository;
+	public OrganizationService(OrganizationRepository organizationRepository,
+							   UserPlanifikaRepository userPlanifikaRepository) {
 		this.organizationRepository = organizationRepository;
+		this.userPlanifikaRepository = userPlanifikaRepository;
 	}
 
 	public List<Organization> findAll() {
@@ -50,8 +53,8 @@ public class OrganizationService {
 		organizationRepository.deleteById(id);
 	}
 
-	public List<UserPlanifika> getUsersByOrganization(Long id) {
-		Optional<Organization> org = organizationRepository.findById(id);
-		return org.map(Organization::getUsers).orElse(List.of());
-	}
+    public List<UserPlanifika> getUsersByOrganization(Long id) {
+        // Direct query avoids LazyInitializationException and N+1 issues
+        return userPlanifikaRepository.findByOrganization_Id(id);
+    }
 }
