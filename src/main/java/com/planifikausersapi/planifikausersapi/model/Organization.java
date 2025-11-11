@@ -2,6 +2,7 @@ package com.planifikausersapi.planifikausersapi.model;
 
 import jakarta.persistence.*;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Organization")
@@ -31,6 +32,7 @@ public class Organization {
     private String domain;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<UserPlanifika> users;
 
     // Getters y setters
