@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Pruebas - Reporte de Tests</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .timestamp {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        .stat-card.passed {
+            border-top: 4px solid #28a745;
+        }
+        
+        .stat-card.failed {
+            border-top: 4px solid #dc3545;
+        }
+        
+        .stat-card.errors {
+            border-top: 4px solid #ffc107;
+        }
+        
+        .stat-card.skipped {
+            border-top: 4px solid #6c757d;
+        }
+        
+        .stat-card.total {
+            border-top: 4px solid #007bff;
+        }
+        
+        .stat-card.time {
+            border-top: 4px solid #17a2b8;
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .suites-section {
+            padding: 30px;
+        }
+        
+        .suites-section h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .suite-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .suite-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .suite-header:hover {
+            opacity: 0.9;
+        }
+        
+        .suite-header h3 {
+            font-size: 1.3em;
+        }
+        
+        .suite-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+        }
+        
+        .suite-content {
+            padding: 20px;
+            display: none;
+        }
+        
+        .suite-content.active {
+            display: block;
+        }
+        
+        .test-list {
+            list-style: none;
+        }
+        
+        .test-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .test-item.passed {
+            border-left-color: #28a745;
+        }
+        
+        .test-item.failed {
+            border-left-color: #dc3545;
+        }
+        
+        .test-item.error {
+            border-left-color: #ffc107;
+        }
+        
+        .test-item.skipped {
+            border-left-color: #6c757d;
+        }
+        
+        .test-name {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .test-time {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        .test-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .test-status.passed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .test-status.failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .test-status.error {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .test-status.skipped {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .error-details {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #721c24;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            background: #f8f9fa;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Dashboard de Pruebas</h1>
+            <div class="timestamp">Generado el 11/11/2025 17:23:41</div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-label">Total de Pruebas</div>
+                <div class="stat-value">57</div>
+            </div>
+            <div class="stat-card passed">
+                <div class="stat-label">Exitosas</div>
+                <div class="stat-value" style="color: #28a745;">56</div>
+            </div>
+            <div class="stat-card failed">
+                <div class="stat-label">Fallidas</div>
+                <div class="stat-value" style="color: #dc3545;">1</div>
+            </div>
+            <div class="stat-card errors">
+                <div class="stat-label">Errores</div>
+                <div class="stat-value" style="color: #ffc107;">0</div>
+            </div>
+            <div class="stat-card skipped">
+                <div class="stat-label">Omitidas</div>
+                <div class="stat-value" style="color: #6c757d;">0</div>
+            </div>
+            <div class="stat-card time">
+                <div class="stat-label">Tiempo Total</div>
+                <div class="stat-value" style="color: #17a2b8;">19.07s</div>
+            </div>
+        </div>
+        
+        <div style="padding: 0 30px;">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 98.24561403508771%;">
+                    98.2% Éxito
+                </div>
+            </div>
+        </div>
+        
+        <div class="suites-section">
+            <h2>📋 Suites de Pruebas (8)</h2>
+
+            <div class="suite-card">
+                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_controller_OrganizationControllerTest')">
+                    <div>
+                        <h3>com.planifikausersapi.planifikausersapi.controller.OrganizationControllerTest</h3>
+                        <div class="suite-stats">
+                            <span>✅ 13</span>
+                            <span>❌ 0</span>
+                            <span>⚠️ 0</span>
+                            <span>⏭️ 0</span>
+                            <span>⏱️ 5.71s</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 1.5em;">▼</div>
+                </div>
+                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_controller_OrganizationControllerTest">
+                    <ul class="test-list">
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetUsersByOrganization</div>
+                                <div class="test-time">0.533s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetOrganizationByIdNotFound</div>
+                                <div class="test-time">0.030s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testDeleteOrganization</div>
+                                <div class="test-time">0.016s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testCorsHeaders</div>
+                                <div class="test-time">0.017s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetAllOrganizations</div>
+                                <div class="test-time">0.012s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUpdateOrganization</div>
+                                <div class="test-time">0.104s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testLinkUserToOrganizationNotFound</div>
+                                <div class="test-time">0.014s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testCreateOrganizationWithInvalidData</div>
+                                <div class="test-time">0.010s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUpdateOrganizationNotFound</div>
+                                <div class="test-time">0.013s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testLinkUserToOrganization</div>
+                                <div class="test-time">0.010s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetOrganizationById</div>
+                                <div class="test-time">0.009s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetUsersByOrganizationEmpty</div>
+                                <div class="test-time">0.012s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testCreateOrganization</div>
+                                <div class="test-time">0.011s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="suite-card">
+                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_model_OrganizationTest')">
+                    <div>
+                        <h3>com.planifikausersapi.planifikausersapi.model.OrganizationTest</h3>
+                        <div class="suite-stats">
+                            <span>✅ 4</span>
+                            <span>❌ 0</span>
+                            <span>⚠️ 0</span>
+                            <span>⏭️ 0</span>
+                            <span>⏱️ 0.02s</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 1.5em;">▼</div>
+                </div>
+                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_model_OrganizationTest">
+                    <ul class="test-list">
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGettersAndSetters</div>
+                                <div class="test-time">0.011s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUsersRelationship</div>
+                                <div class="test-time">0.000s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testNullValues</div>
+                                <div class="test-time">0.001s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testOrganizationWithAllFields</div>
+                                <div class="test-time">0.003s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="suite-card">
+                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_model_UserPlanifikaTest')">
+                    <div>
+                        <h3>com.planifikausersapi.planifikausersapi.model.UserPlanifikaTest</h3>
+                        <div class="suite-stats">
+                            <span>✅ 6</span>
+                            <span>❌ 0</span>
+                            <span>⚠️ 0</span>
+                            <span>⏭️ 0</span>
+                            <span>⏱️ 0.02s</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 1.5em;">▼</div>
+                </div>
+                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_model_UserPlanifikaTest">
+                    <ul class="test-list">
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGettersAndSetters</div>
+                                <div class="test-time">0.002s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testOrganizationRelationship</div>
+                                <div class="test-time">0.002s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testEmptyStringValues</div>
+                                <div class="test-time">0.002s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUserWithAllFields</div>
+                                <div class="test-time">0.003s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUserWithDifferentOrganization</div>
+                                <div class="test-time">0.002s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testNullValues</div>
+                                <div class="test-time">0.002s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="suite-card">
+                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_OrganizationIntegrationTest')">
+                    <div>
+                        <h3>com.planifikausersapi.planifikausersapi.OrganizationIntegrationTest</h3>
+                        <div class="suite-stats">
+                            <span>✅ 2</span>
+                            <span>❌ 1</span>
+                            <span>⚠️ 0</span>
+                            <span>⏭️ 0</span>
+                            <span>⏱️ 6.74s</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 1.5em;">▼</div>
+                </div>
+                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_OrganizationIntegrationTest">
+                    <ul class="test-list">
+
+                        <li class="test-item failed">
+                            <div>
+                                <div class="test-name">testCompleteOrganizationWorkflow</div>
+                                <div class="test-time">0.610s</div>
+                                <div class="error-details">No value at JSON path "$[0].name"</div>
+                            </div>
+                            <span class="test-status failed">failed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testErrorHandling</div>
+                                <div class="test-time">0.039s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testLinkUserToOrganizationWorkflow</div>
+                                <div class="test-time">0.029s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="suite-card">
+                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_PlanifikausersapiApplicationTests')">
+                    <div>
+                        <h3>com.planifikausersapi.planifikausersapi.PlanifikausersapiApplicationTests</h3>
+                        <div class="suite-stats">
+                            <span>✅ 1</span>
+                            <span>❌ 0</span>
+                            <span>⚠️ 0</span>
+                            <span>⏭️ 0</span>
+                            <span>⏱️ 2.57s</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 1.5em;">▼</div>
+                </div>
+                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_PlanifikausersapiApplicationTests">
+                    <ul class="test-list">
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">contextLoads</div>
+                                <div class="test-time">0.012s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="suite-card">
+                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_repository_OrganizationRepositoryTest')">
+                    <div>
+                        <h3>com.planifikausersapi.planifikausersapi.repository.OrganizationRepositoryTest</h3>
+                        <div class="suite-stats">
+                            <span>✅ 7</span>
+                            <span>❌ 0</span>
+                            <span>⚠️ 0</span>
+                            <span>⏭️ 0</span>
+                            <span>⏱️ 0.83s</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 1.5em;">▼</div>
+                </div>
+                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_repository_OrganizationRepositoryTest">
+                    <ul class="test-list">
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUpdateOrganization</div>
+                                <div class="test-time">0.022s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testSaveOrganization</div>
+                                <div class="test-time">0.020s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAllEmpty</div>
+                                <div class="test-time">0.019s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAll</div>
+                                <div class="test-time">0.025s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindById</div>
+                                <div class="test-time">0.017s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindByIdNotFound</div>
+                                <div class="test-time">0.023s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testDeleteById</div>
+                                <div class="test-time">0.028s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="suite-card">
+                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_repository_UserPlanifikaRepositoryTest')">
+                    <div>
+                        <h3>com.planifikausersapi.planifikausersapi.repository.UserPlanifikaRepositoryTest</h3>
+                        <div class="suite-stats">
+                            <span>✅ 8</span>
+                            <span>❌ 0</span>
+                            <span>⚠️ 0</span>
+                            <span>⏭️ 0</span>
+                            <span>⏱️ 0.24s</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 1.5em;">▼</div>
+                </div>
+                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_repository_UserPlanifikaRepositoryTest">
+                    <ul class="test-list">
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUpdateUserPlanifika</div>
+                                <div class="test-time">0.032s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAllEmpty</div>
+                                <div class="test-time">0.020s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAll</div>
+                                <div class="test-time">0.023s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testSaveUserPlanifika</div>
+                                <div class="test-time">0.022s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindById</div>
+                                <div class="test-time">0.026s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindByIdNotFound</div>
+                                <div class="test-time">0.012s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUserWithOrganizationRelationship</div>
+                                <div class="test-time">0.024s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testDeleteById</div>
+                                <div class="test-time">0.015s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="suite-card">
+                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_service_OrganizationServiceTest')">
+                    <div>
+                        <h3>com.planifikausersapi.planifikausersapi.service.OrganizationServiceTest</h3>
+                        <div class="suite-stats">
+                            <span>✅ 15</span>
+                            <span>❌ 0</span>
+                            <span>⚠️ 0</span>
+                            <span>⏭️ 0</span>
+                            <span>⏱️ 2.93s</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 1.5em;">▼</div>
+                </div>
+                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_service_OrganizationServiceTest">
+                    <ul class="test-list">
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetUsersByOrganization</div>
+                                <div class="test-time">2.682s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAll</div>
+                                <div class="test-time">0.010s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testSave</div>
+                                <div class="test-time">0.013s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testSave_Update</div>
+                                <div class="test-time">0.009s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAllPaginated_EmptyPage</div>
+                                <div class="test-time">0.015s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAllPaginated_TrimSearch</div>
+                                <div class="test-time">0.010s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAllPaginated_WithEmptySearch</div>
+                                <div class="test-time">0.020s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAllPaginated_WithSearch</div>
+                                <div class="test-time">0.010s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindById_Success</div>
+                                <div class="test-time">0.010s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAllPaginated</div>
+                                <div class="test-time">0.009s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testDeleteById</div>
+                                <div class="test-time">0.009s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAllPaginated_WithNullSearch</div>
+                                <div class="test-time">0.008s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindById_NotFound</div>
+                                <div class="test-time">0.008s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testFindAll_EmptyList</div>
+                                <div class="test-time">0.007s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetUsersByOrganization_EmptyList</div>
+                                <div class="test-time">0.007s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="footer">
+            <p>Generado automáticamente por generate_test_report.py</p>
+        </div>
+    </div>
+    
+    <script>
+        function toggleSuite(suiteId) {
+            const content = document.getElementById(suiteId);
+            content.classList.toggle('active');
+        }
+        
+        // Expandir automáticamente suites con fallos
+        document.addEventListener('DOMContentLoaded', function() {
+            const suites = document.querySelectorAll('.suite-card');
+            suites.forEach(suite => {
+                const failed = suite.querySelector('.test-item.failed, .test-item.error');
+                if (failed) {
+                    const content = suite.querySelector('.suite-content');
+                    if (content) {
+                        content.classList.add('active');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
