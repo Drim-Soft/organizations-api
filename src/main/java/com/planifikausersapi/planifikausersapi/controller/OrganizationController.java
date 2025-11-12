@@ -51,11 +51,8 @@ public class OrganizationController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Organization> update(@PathVariable Long id, @RequestBody Organization organization) {
-		return organizationService.findById(id)
-				.map(existing -> {
-					organization.setId(id);
-					return ResponseEntity.ok(organizationService.save(organization));
-				})
+		return organizationService.updateOrganization(id, organization)
+				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 
