@@ -57,4 +57,18 @@ public class OrganizationService {
         // Direct query avoids LazyInitializationException and N+1 issues
         return userPlanifikaRepository.findByOrganization_Id(id);
     }
+
+	public Optional<Organization> updateOrganization(Long id, Organization updates) {
+		return organizationRepository.findById(id).map(existing -> {
+			// Only update scalar fields; keep relations (users) intact
+			if (updates.getNit() != null) existing.setNit(updates.getNit());
+			if (updates.getName() != null) existing.setName(updates.getName());
+			if (updates.getAddress() != null) existing.setAddress(updates.getAddress());
+			if (updates.getPhone() != null) existing.setPhone(updates.getPhone());
+			if (updates.getPhotoURL() != null) existing.setPhotoURL(updates.getPhotoURL());
+			if (updates.getDomain() != null) existing.setDomain(updates.getDomain());
+
+			return organizationRepository.save(existing);
+		});
+	}
 }
