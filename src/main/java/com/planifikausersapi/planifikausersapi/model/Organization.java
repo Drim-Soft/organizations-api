@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Entidad que representa una organización en el sistema.
+ */
 @Entity
 @Table(name = "Organization")
 public class Organization {
