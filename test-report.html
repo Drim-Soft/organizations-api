@@ -276,21 +276,21 @@
     <div class="container">
         <div class="header">
             <h1>📊 Dashboard de Pruebas</h1>
-            <div class="timestamp">Generado el 11/11/2025 21:22:22</div>
+            <div class="timestamp">Generado el 23/11/2025 16:39:35</div>
         </div>
         
         <div class="stats-grid">
             <div class="stat-card total">
                 <div class="stat-label">Total de Pruebas</div>
-                <div class="stat-value">57</div>
+                <div class="stat-value">45</div>
             </div>
             <div class="stat-card passed">
                 <div class="stat-label">Exitosas</div>
-                <div class="stat-value" style="color: #28a745;">56</div>
+                <div class="stat-value" style="color: #28a745;">45</div>
             </div>
             <div class="stat-card failed">
                 <div class="stat-label">Fallidas</div>
-                <div class="stat-value" style="color: #dc3545;">1</div>
+                <div class="stat-value" style="color: #dc3545;">0</div>
             </div>
             <div class="stat-card errors">
                 <div class="stat-label">Errores</div>
@@ -302,31 +302,31 @@
             </div>
             <div class="stat-card time">
                 <div class="stat-label">Tiempo Total</div>
-                <div class="stat-value" style="color: #17a2b8;">19.07s</div>
+                <div class="stat-value" style="color: #17a2b8;">27.81s</div>
             </div>
         </div>
         
         <div style="padding: 0 30px;">
             <div class="progress-bar">
-                <div class="progress-fill" style="width: 98.24561403508771%;">
-                    98.2% Éxito
+                <div class="progress-fill" style="width: 100.0%;">
+                    100.0% Éxito
                 </div>
             </div>
         </div>
         
         <div class="suites-section">
-            <h2>📋 Suites de Pruebas (8)</h2>
+            <h2>📋 Suites de Pruebas (5)</h2>
 
             <div class="suite-card">
                 <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_controller_OrganizationControllerTest')">
                     <div>
                         <h3>com.planifikausersapi.planifikausersapi.controller.OrganizationControllerTest</h3>
                         <div class="suite-stats">
-                            <span>✅ 13</span>
+                            <span>✅ 14</span>
                             <span>❌ 0</span>
                             <span>⚠️ 0</span>
                             <span>⏭️ 0</span>
-                            <span>⏱️ 5.71s</span>
+                            <span>⏱️ 10.52s</span>
                         </div>
                     </div>
                     <div style="font-size: 1.5em;">▼</div>
@@ -337,7 +337,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testGetUsersByOrganization</div>
-                                <div class="test-time">0.533s</div>
+                                <div class="test-time">0.779s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -345,8 +345,8 @@
 
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testGetOrganizationByIdNotFound</div>
-                                <div class="test-time">0.030s</div>
+                                <div class="test-name">testGetAllPaginated_WithSearch</div>
+                                <div class="test-time">0.099s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -354,7 +354,16 @@
 
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testDeleteOrganization</div>
+                                <div class="test-name">testGetById_NotFound</div>
+                                <div class="test-time">0.024s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetById_Success</div>
                                 <div class="test-time">0.016s</div>
                                 
                             </div>
@@ -363,89 +372,89 @@
 
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testCorsHeaders</div>
+                                <div class="test-name">testGetAllPaginated_WithEmptySearch</div>
+                                <div class="test-time">0.018s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetAllPaginated_WithNegativePage</div>
+                                <div class="test-time">0.018s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUpdate_NotFound</div>
+                                <div class="test-time">0.118s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetAllPaginated_WithoutSearch</div>
+                                <div class="test-time">0.023s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testCreate</div>
+                                <div class="test-time">0.025s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testDelete</div>
+                                <div class="test-time">0.026s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetAll</div>
+                                <div class="test-time">0.021s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetAllPaginated_WithInvalidSize</div>
+                                <div class="test-time">0.026s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUpdate_Success</div>
+                                <div class="test-time">0.022s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testGetUsersByOrganization_EmptyList</div>
                                 <div class="test-time">0.017s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testGetAllOrganizations</div>
-                                <div class="test-time">0.012s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testUpdateOrganization</div>
-                                <div class="test-time">0.104s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testLinkUserToOrganizationNotFound</div>
-                                <div class="test-time">0.014s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testCreateOrganizationWithInvalidData</div>
-                                <div class="test-time">0.010s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testUpdateOrganizationNotFound</div>
-                                <div class="test-time">0.013s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testLinkUserToOrganization</div>
-                                <div class="test-time">0.010s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testGetOrganizationById</div>
-                                <div class="test-time">0.009s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testGetUsersByOrganizationEmpty</div>
-                                <div class="test-time">0.012s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testCreateOrganization</div>
-                                <div class="test-time">0.011s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -460,11 +469,11 @@
                     <div>
                         <h3>com.planifikausersapi.planifikausersapi.model.OrganizationTest</h3>
                         <div class="suite-stats">
-                            <span>✅ 4</span>
+                            <span>✅ 10</span>
                             <span>❌ 0</span>
                             <span>⚠️ 0</span>
                             <span>⏭️ 0</span>
-                            <span>⏱️ 0.02s</span>
+                            <span>⏱️ 0.08s</span>
                         </div>
                     </div>
                     <div style="font-size: 1.5em;">▼</div>
@@ -474,8 +483,8 @@
 
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testGettersAndSetters</div>
-                                <div class="test-time">0.011s</div>
+                                <div class="test-name">testAddress</div>
+                                <div class="test-time">0.022s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -483,8 +492,8 @@
 
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testUsersRelationship</div>
-                                <div class="test-time">0.000s</div>
+                                <div class="test-name">testNit</div>
+                                <div class="test-time">0.002s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -492,8 +501,8 @@
 
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testNullValues</div>
-                                <div class="test-time">0.001s</div>
+                                <div class="test-name">testPhone</div>
+                                <div class="test-time">0.004s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -501,8 +510,62 @@
 
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testOrganizationWithAllFields</div>
+                                <div class="test-name">testUsers</div>
+                                <div class="test-time">0.006s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testName</div>
+                                <div class="test-time">0.005s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testId</div>
                                 <div class="test-time">0.003s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUsers_Empty</div>
+                                <div class="test-time">0.005s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testPhotoURL</div>
+                                <div class="test-time">0.003s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testDomain</div>
+                                <div class="test-time">0.002s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testUsers_Null</div>
+                                <div class="test-time">0.006s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -517,7 +580,7 @@
                     <div>
                         <h3>com.planifikausersapi.planifikausersapi.model.UserPlanifikaTest</h3>
                         <div class="suite-stats">
-                            <span>✅ 6</span>
+                            <span>✅ 5</span>
                             <span>❌ 0</span>
                             <span>⚠️ 0</span>
                             <span>⏭️ 0</span>
@@ -531,34 +594,7 @@
 
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testGettersAndSetters</div>
-                                <div class="test-time">0.002s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testOrganizationRelationship</div>
-                                <div class="test-time">0.002s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testEmptyStringValues</div>
-                                <div class="test-time">0.002s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testUserWithAllFields</div>
+                                <div class="test-name">testOrganization</div>
                                 <div class="test-time">0.003s</div>
                                 
                             </div>
@@ -567,7 +603,7 @@
 
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testUserWithDifferentOrganization</div>
+                                <div class="test-name">testName</div>
                                 <div class="test-time">0.002s</div>
                                 
                             </div>
@@ -576,56 +612,26 @@
 
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testNullValues</div>
+                                <div class="test-name">testId</div>
+                                <div class="test-time">0.004s</div>
+                                
+                            </div>
+                            <span class="test-status passed">passed</span>
+                        </li>
+
+                        <li class="test-item passed">
+                            <div>
+                                <div class="test-name">testPhotoURL</div>
                                 <div class="test-time">0.002s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
                         </li>
 
-                    </ul>
-                </div>
-            </div>
-
-            <div class="suite-card">
-                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_OrganizationIntegrationTest')">
-                    <div>
-                        <h3>com.planifikausersapi.planifikausersapi.OrganizationIntegrationTest</h3>
-                        <div class="suite-stats">
-                            <span>✅ 2</span>
-                            <span>❌ 1</span>
-                            <span>⚠️ 0</span>
-                            <span>⏭️ 0</span>
-                            <span>⏱️ 6.74s</span>
-                        </div>
-                    </div>
-                    <div style="font-size: 1.5em;">▼</div>
-                </div>
-                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_OrganizationIntegrationTest">
-                    <ul class="test-list">
-
-                        <li class="test-item failed">
-                            <div>
-                                <div class="test-name">testCompleteOrganizationWorkflow</div>
-                                <div class="test-time">0.610s</div>
-                                <div class="error-details">No value at JSON path "$[0].name"</div>
-                            </div>
-                            <span class="test-status failed">failed</span>
-                        </li>
-
                         <li class="test-item passed">
                             <div>
-                                <div class="test-name">testErrorHandling</div>
-                                <div class="test-time">0.039s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testLinkUserToOrganizationWorkflow</div>
-                                <div class="test-time">0.029s</div>
+                                <div class="test-name">testOrganization_Null</div>
+                                <div class="test-time">0.002s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -644,7 +650,7 @@
                             <span>❌ 0</span>
                             <span>⚠️ 0</span>
                             <span>⏭️ 0</span>
-                            <span>⏱️ 2.57s</span>
+                            <span>⏱️ 16.43s</span>
                         </div>
                     </div>
                     <div style="font-size: 1.5em;">▼</div>
@@ -655,184 +661,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">contextLoads</div>
-                                <div class="test-time">0.012s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-
-            <div class="suite-card">
-                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_repository_OrganizationRepositoryTest')">
-                    <div>
-                        <h3>com.planifikausersapi.planifikausersapi.repository.OrganizationRepositoryTest</h3>
-                        <div class="suite-stats">
-                            <span>✅ 7</span>
-                            <span>❌ 0</span>
-                            <span>⚠️ 0</span>
-                            <span>⏭️ 0</span>
-                            <span>⏱️ 0.83s</span>
-                        </div>
-                    </div>
-                    <div style="font-size: 1.5em;">▼</div>
-                </div>
-                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_repository_OrganizationRepositoryTest">
-                    <ul class="test-list">
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testUpdateOrganization</div>
-                                <div class="test-time">0.022s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testSaveOrganization</div>
-                                <div class="test-time">0.020s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testFindAllEmpty</div>
-                                <div class="test-time">0.019s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testFindAll</div>
-                                <div class="test-time">0.025s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testFindById</div>
-                                <div class="test-time">0.017s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testFindByIdNotFound</div>
-                                <div class="test-time">0.023s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testDeleteById</div>
-                                <div class="test-time">0.028s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-
-            <div class="suite-card">
-                <div class="suite-header" onclick="toggleSuite('com_planifikausersapi_planifikausersapi_repository_UserPlanifikaRepositoryTest')">
-                    <div>
-                        <h3>com.planifikausersapi.planifikausersapi.repository.UserPlanifikaRepositoryTest</h3>
-                        <div class="suite-stats">
-                            <span>✅ 8</span>
-                            <span>❌ 0</span>
-                            <span>⚠️ 0</span>
-                            <span>⏭️ 0</span>
-                            <span>⏱️ 0.24s</span>
-                        </div>
-                    </div>
-                    <div style="font-size: 1.5em;">▼</div>
-                </div>
-                <div class="suite-content" id="com_planifikausersapi_planifikausersapi_repository_UserPlanifikaRepositoryTest">
-                    <ul class="test-list">
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testUpdateUserPlanifika</div>
-                                <div class="test-time">0.032s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testFindAllEmpty</div>
-                                <div class="test-time">0.020s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testFindAll</div>
-                                <div class="test-time">0.023s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testSaveUserPlanifika</div>
-                                <div class="test-time">0.022s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testFindById</div>
-                                <div class="test-time">0.026s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testFindByIdNotFound</div>
-                                <div class="test-time">0.012s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testUserWithOrganizationRelationship</div>
-                                <div class="test-time">0.024s</div>
-                                
-                            </div>
-                            <span class="test-status passed">passed</span>
-                        </li>
-
-                        <li class="test-item passed">
-                            <div>
-                                <div class="test-name">testDeleteById</div>
-                                <div class="test-time">0.015s</div>
+                                <div class="test-time">0.011s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -851,7 +680,7 @@
                             <span>❌ 0</span>
                             <span>⚠️ 0</span>
                             <span>⏭️ 0</span>
-                            <span>⏱️ 2.93s</span>
+                            <span>⏱️ 0.76s</span>
                         </div>
                     </div>
                     <div style="font-size: 1.5em;">▼</div>
@@ -862,7 +691,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testGetUsersByOrganization</div>
-                                <div class="test-time">2.682s</div>
+                                <div class="test-time">0.643s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -871,7 +700,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testFindAll</div>
-                                <div class="test-time">0.010s</div>
+                                <div class="test-time">0.009s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -880,7 +709,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testSave</div>
-                                <div class="test-time">0.013s</div>
+                                <div class="test-time">0.007s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -889,7 +718,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testSave_Update</div>
-                                <div class="test-time">0.009s</div>
+                                <div class="test-time">0.006s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -898,7 +727,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testFindAllPaginated_EmptyPage</div>
-                                <div class="test-time">0.015s</div>
+                                <div class="test-time">0.007s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -907,7 +736,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testFindAllPaginated_TrimSearch</div>
-                                <div class="test-time">0.010s</div>
+                                <div class="test-time">0.006s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -916,7 +745,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testFindAllPaginated_WithEmptySearch</div>
-                                <div class="test-time">0.020s</div>
+                                <div class="test-time">0.007s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -925,7 +754,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testFindAllPaginated_WithSearch</div>
-                                <div class="test-time">0.010s</div>
+                                <div class="test-time">0.009s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -934,7 +763,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testFindById_Success</div>
-                                <div class="test-time">0.010s</div>
+                                <div class="test-time">0.006s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -943,7 +772,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testFindAllPaginated</div>
-                                <div class="test-time">0.009s</div>
+                                <div class="test-time">0.007s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -952,7 +781,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testDeleteById</div>
-                                <div class="test-time">0.009s</div>
+                                <div class="test-time">0.007s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -961,7 +790,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testFindAllPaginated_WithNullSearch</div>
-                                <div class="test-time">0.008s</div>
+                                <div class="test-time">0.004s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -970,7 +799,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testFindById_NotFound</div>
-                                <div class="test-time">0.008s</div>
+                                <div class="test-time">0.007s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
@@ -979,7 +808,7 @@
                         <li class="test-item passed">
                             <div>
                                 <div class="test-name">testFindAll_EmptyList</div>
-                                <div class="test-time">0.007s</div>
+                                <div class="test-time">0.005s</div>
                                 
                             </div>
                             <span class="test-status passed">passed</span>
